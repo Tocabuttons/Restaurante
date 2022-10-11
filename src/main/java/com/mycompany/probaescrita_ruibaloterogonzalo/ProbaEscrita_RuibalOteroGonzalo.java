@@ -4,17 +4,23 @@
  */
 package com.mycompany.probaescrita_ruibaloterogonzalo;
 
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author usuario
  */
 public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ProbaEscrita_RuibalOteroGonzalo
-     */
+    private DefaultComboBoxModel<String> modeloConcellos;
+    private DefaultComboBoxModel<Provincia> modeloProvincias;
+
     public ProbaEscrita_RuibalOteroGonzalo() {
         initComponents();
+        modeloProvincias = new DefaultComboBoxModel<>(provincias);
+        modeloConcellos = new DefaultComboBoxModel<>(concellosCorunha);
+        cmbLocalidade.setModel(modeloConcellos);
+        cmbProvincias.setModel(modeloProvincias);
     }
 
     /**
@@ -37,7 +43,7 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
         lblEnderezo = new javax.swing.JLabel();
         txtEnderezo = new javax.swing.JTextField();
         lblProvincia = new javax.swing.JLabel();
-        cmbProvincia = new javax.swing.JComboBox<>();
+        cmbProvincias = new javax.swing.JComboBox<>();
         lblLocalidade = new javax.swing.JLabel();
         cmbLocalidade = new javax.swing.JComboBox<>();
         txtGarfos = new javax.swing.JLabel();
@@ -48,7 +54,7 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
         lblTeléfono = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         lblEspecialidade = new javax.swing.JLabel();
-        txtEspecialidae = new javax.swing.JTextField();
+        txtEspecialidade = new javax.swing.JTextField();
         panRestaurantesDisp = new javax.swing.JPanel();
         jrbTodos = new javax.swing.JRadioButton();
         jrbAmosarResMenuDia = new javax.swing.JRadioButton();
@@ -89,7 +95,12 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
 
         lblProvincia.setText("Provincia");
 
-        cmbProvincia.setBackground(java.awt.Color.yellow);
+        cmbProvincias.setBackground(java.awt.Color.yellow);
+        cmbProvincias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeleccionarProvinciaActionPerformed(evt);
+            }
+        });
 
         lblLocalidade.setText("Localidade");
 
@@ -100,6 +111,11 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
         cbxMenuDia.setText("Menú do día");
 
         btnGardar.setText("Gardar");
+        btnGardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GardarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
 
@@ -139,7 +155,7 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
                             .addGroup(panNovoRestauranteLayout.createSequentialGroup()
                                 .addGroup(panNovoRestauranteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panNovoRestauranteLayout.createSequentialGroup()
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                                         .addGap(29, 29, 29)
                                         .addComponent(lblEspecialidade))
                                     .addComponent(txtEnderezo))
@@ -148,24 +164,22 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
                                     .addGroup(panNovoRestauranteLayout.createSequentialGroup()
                                         .addComponent(lblProvincia)
                                         .addGap(18, 18, 18)
-                                        .addComponent(cmbProvincia, 0, 160, Short.MAX_VALUE)
+                                        .addComponent(cmbProvincias, 0, 159, Short.MAX_VALUE)
                                         .addGap(18, 18, 18)
                                         .addComponent(lblLocalidade)
                                         .addGap(70, 70, 70)
-                                        .addComponent(cmbLocalidade, 0, 160, Short.MAX_VALUE))
-                                    .addComponent(txtEspecialidae)))
+                                        .addComponent(cmbLocalidade, 0, 158, Short.MAX_VALUE))
+                                    .addComponent(txtEspecialidade)))
                             .addGroup(panNovoRestauranteLayout.createSequentialGroup()
-                                .addGroup(panNovoRestauranteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panNovoRestauranteLayout.createSequentialGroup()
-                                        .addComponent(spnGarfos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbxMenuDia))
-                                    .addGroup(panNovoRestauranteLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnGardar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnLimpar)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(spnGarfos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxMenuDia))))
+                    .addGroup(panNovoRestauranteLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGardar)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnLimpar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panNovoRestauranteLayout.setVerticalGroup(
@@ -184,7 +198,7 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
                     .addComponent(lblEnderezo)
                     .addComponent(txtEnderezo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProvincia)
-                    .addComponent(cmbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLocalidade)
                     .addComponent(cmbLocalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
@@ -192,7 +206,7 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
                     .addComponent(lblTeléfono)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEspecialidade)
-                    .addComponent(txtEspecialidae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(panNovoRestauranteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtGarfos)
@@ -287,7 +301,7 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panNovoRestaurante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panRestaurantesDisp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panRestaurantesDisp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -305,6 +319,16 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void SeleccionarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionarProvinciaActionPerformed
+        Provincia p = (Provincia) cmbProvincias.getSelectedItem();
+
+        cargarConcellos(p.getId());
+    }//GEN-LAST:event_SeleccionarProvinciaActionPerformed
+
+    private void GardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GardarActionPerformed
+        System.out.println(formularioValido());
+    }//GEN-LAST:event_GardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,13 +365,85 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
         });
     }
 
+    private void cargarConcellos(int codProvincia) {
+        modeloConcellos.removeAllElements();
+        switch (codProvincia) {
+            case 1:
+                for (int i = 0; i < concellosCorunha.length; i++) {
+                    modeloConcellos.addElement(concellosCorunha[i]);
+                }
+                break;
+            case 2:
+                for (int i = 0; i < concellosLugo.length; i++) {
+                    modeloConcellos.addElement(concellosLugo[i]);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < concellosOurense.length; i++) {
+                    modeloConcellos.addElement(concellosOurense[i]);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < concellosPontevedra.length; i++) {
+                    modeloConcellos.addElement(concellosPontevedra[i]);
+                }
+                break;
+        }
+    }
+
+    public boolean formularioValido() {
+
+        boolean valido = true;
+        String mensaje = "";
+//
+//        if (!validarCif(txtCif.getText())) {
+//            valido = false;
+//            mensaje += "";
+//        }
+
+        if (!txtNome.getText().matches("([A-Za-z]+\\s*)+")) {
+            valido = false;
+            mensaje += "";
+        }
+
+        if (!txtPropietario.getText().equals("")) {
+            if (!txtPropietario.getText().matches("([A-Za-z]+\\s*)+")) {
+                valido = false;
+                mensaje += "";
+            }
+        }
+        
+        // regex para enderezo
+        if (!txtEnderezo.getText().matches("")) {
+            valido = false;
+            mensaje += "";
+        }
+        
+        if (!txtTelefono.getText().matches("[123456789]\\d{8}")) {
+            valido = false;
+            mensaje += "";
+        }
+
+        return valido;
+
+    }
+    //Pequena "base de datos" de concellos por provincias
+    private String[] concellosCorunha = {"Betanzos", "Ferrol", "Pontedeume"};
+    private String[] concellosLugo = {"Foz", "Quiroga", "Triacastela"};
+    private String[] concellosOurense = {"Bande", "Castro Caldelas", "Maside"};
+    private String[] concellosPontevedra = {"Cangas", "Catoira", "Bueu", "Marín", "Pontevedra", "Tomiño"};
+    private Provincia[] provincias = {new Provincia(1, "A Coruña"), new Provincia(2, "Lugo"),
+        new Provincia(3, "Ourense"), new Provincia(4, "Pontevedra")
+    };
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGardar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JCheckBox cbxMenuDia;
     private javax.swing.JComboBox<String> cmbLocalidade;
-    private javax.swing.JComboBox<String> cmbProvincia;
+    private javax.swing.JComboBox<Provincia> cmbProvincias;
     private javax.swing.JRadioButton jrbAmosarResMenuDia;
     private javax.swing.JRadioButton jrbTodos;
     private javax.swing.JLabel lblCif;
@@ -366,7 +462,7 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
     private javax.swing.JTable tblRestaurantesDisp;
     private javax.swing.JTextField txtCif;
     private javax.swing.JTextField txtEnderezo;
-    private javax.swing.JTextField txtEspecialidae;
+    private javax.swing.JTextField txtEspecialidade;
     private javax.swing.JLabel txtGarfos;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPropietario;
