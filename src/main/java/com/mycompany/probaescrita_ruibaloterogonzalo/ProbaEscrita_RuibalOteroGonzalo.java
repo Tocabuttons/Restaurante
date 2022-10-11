@@ -5,6 +5,7 @@
 package com.mycompany.probaescrita_ruibaloterogonzalo;
 
 import javax.swing.DefaultComboBoxModel;
+import probaEscritaUD1ACT4.Restaurante;
 
 /**
  *
@@ -12,14 +13,14 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
 
-    private DefaultComboBoxModel<String> modeloConcellos;
+    private DefaultComboBoxModel<String> modeloLocalidades;
     private DefaultComboBoxModel<Provincia> modeloProvincias;
 
     public ProbaEscrita_RuibalOteroGonzalo() {
         initComponents();
         modeloProvincias = new DefaultComboBoxModel<>(provincias);
-        modeloConcellos = new DefaultComboBoxModel<>(concellosCorunha);
-        cmbLocalidade.setModel(modeloConcellos);
+        modeloLocalidades = new DefaultComboBoxModel<>(localidadesCorunha);
+        cmbLocalidade.setModel(modeloLocalidades);
         cmbProvincias.setModel(modeloProvincias);
     }
 
@@ -107,6 +108,12 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
         cmbLocalidade.setBackground(java.awt.Color.yellow);
 
         txtGarfos.setText("Garfos");
+
+        spnGarfos.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnGarfosStateChanged(evt);
+            }
+        });
 
         cbxMenuDia.setText("Menú do día");
 
@@ -330,6 +337,23 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
         System.out.println(formularioValido());
     }//GEN-LAST:event_GardarActionPerformed
 
+    private void spnGarfosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnGarfosStateChanged
+        
+        final int MIN_GARFOS = 0;
+        final int MAX_GARFOS = 5;
+        
+        int valor = (int) spnGarfos.getValue();
+        if (valor > MAX_GARFOS ) {
+            valor = MAX_GARFOS;
+        }
+        
+        if (valor < MIN_GARFOS ) {
+            valor = MIN_GARFOS;
+        }
+        
+        spnGarfos.setValue(valor);
+    }//GEN-LAST:event_spnGarfosStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -366,31 +390,52 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
     }
 
     private void cargarConcellos(int codProvincia) {
-        modeloConcellos.removeAllElements();
+        modeloLocalidades.removeAllElements();
         switch (codProvincia) {
             case 1:
-                for (int i = 0; i < concellosCorunha.length; i++) {
-                    modeloConcellos.addElement(concellosCorunha[i]);
+                for (int i = 0; i < localidadesCorunha.length; i++) {
+                    modeloLocalidades.addElement(localidadesCorunha[i]);
                 }
                 break;
             case 2:
-                for (int i = 0; i < concellosLugo.length; i++) {
-                    modeloConcellos.addElement(concellosLugo[i]);
+                for (int i = 0; i < localidadesLugo.length; i++) {
+                    modeloLocalidades.addElement(localidadesLugo[i]);
                 }
                 break;
             case 3:
-                for (int i = 0; i < concellosOurense.length; i++) {
-                    modeloConcellos.addElement(concellosOurense[i]);
+                for (int i = 0; i < localidadesOurense.length; i++) {
+                    modeloLocalidades.addElement(localidadesOurense[i]);
                 }
                 break;
             case 4:
-                for (int i = 0; i < concellosPontevedra.length; i++) {
-                    modeloConcellos.addElement(concellosPontevedra[i]);
+                for (int i = 0; i < localidadesPontevedra.length; i++) {
+                    modeloLocalidades.addElement(localidadesPontevedra[i]);
                 }
                 break;
         }
     }
 
+    public Restaurante crearRestaurante(){
+        Restaurante r = null;
+        
+        String cif = txtCif.getText();
+        String nome = txtNome.getText();
+        String propietario = txtPropietario.getText();
+        String enderezo = txtEnderezo.getText();
+        
+        Provincia p = (Provincia) cmbProvincias.getSelectedItem();
+        String provincia = p.getNombre();
+        String localidade = modeloLocalidades.
+                getElementAt(cmbLocalidade.getSelectedIndex());
+        String telefono = txtTelefono.getText();
+        String especialidade = txtEspecialidade.getText();
+        int garfos = (int) spnGarfos.getValue();
+        boolean menuDia = cbxMenuDia.isSelected();
+        
+        r = new Restaurante(cif, nome, propietario, enderezo, provincia, localidade, telefono, especialidade, garfos, menuDia);
+        
+        return r;
+    }
     public boolean formularioValido() {
 
         boolean valido = true;
@@ -428,10 +473,10 @@ public class ProbaEscrita_RuibalOteroGonzalo extends javax.swing.JFrame {
 
     }
     //Pequena "base de datos" de concellos por provincias
-    private String[] concellosCorunha = {"Betanzos", "Ferrol", "Pontedeume"};
-    private String[] concellosLugo = {"Foz", "Quiroga", "Triacastela"};
-    private String[] concellosOurense = {"Bande", "Castro Caldelas", "Maside"};
-    private String[] concellosPontevedra = {"Cangas", "Catoira", "Bueu", "Marín", "Pontevedra", "Tomiño"};
+    private String[] localidadesCorunha = {"Betanzos", "Ferrol", "Pontedeume"};
+    private String[] localidadesLugo = {"Foz", "Quiroga", "Triacastela"};
+    private String[] localidadesOurense = {"Bande", "Castro Caldelas", "Maside"};
+    private String[] localidadesPontevedra = {"Cangas", "Catoira", "Bueu", "Marín", "Pontevedra", "Tomiño"};
     private Provincia[] provincias = {new Provincia(1, "A Coruña"), new Provincia(2, "Lugo"),
         new Provincia(3, "Ourense"), new Provincia(4, "Pontevedra")
     };

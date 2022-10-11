@@ -275,6 +275,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spnGarfos">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spnGarfosStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbxMenuDia">
           <Properties>
